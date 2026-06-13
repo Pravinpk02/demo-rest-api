@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
+import org.springframework.security.config.Customizer;
+
 @Configuration
 public class SecurityConfig {
 
@@ -17,6 +19,7 @@ public class SecurityConfig {
     @Bean
      SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+            .cors(Customizer.withDefaults())
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/auth/**", "/api/orders", "/api/orders/**", "/api/inventory", "/api/inventory/**", "/error").permitAll()
